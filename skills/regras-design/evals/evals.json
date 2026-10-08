@@ -1,0 +1,126 @@
+{
+  "skill_name": "regras-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Cria a seção de destaque (hero) da landing page do meu SaaS de PDV para restaurantes: título, subtítulo, um selo e o botão principal.",
+      "expected_output": "Hero sem gradiente, sem emoji, sem travessão na copy, sem selo genérico ('New', 'AI-Powered'), com headline que diz o que o produto faz e para quem e CTA com a ação real.",
+      "assertions": [
+        {
+          "name": "sem_gradiente",
+          "description": "O CSS não usa gradiente",
+          "type": "not_contains_any",
+          "values": [
+            "linear-gradient",
+            "radial-gradient",
+            "conic-gradient"
+          ]
+        },
+        {
+          "name": "sem_selo_generico",
+          "description": "O selo no HTML não é genérico",
+          "type": "not_contains_any",
+          "values": [
+            ">New<",
+            ">Novo<",
+            ">Beta<",
+            ">AI-Powered<",
+            "Powered by IA<"
+          ]
+        },
+        {
+          "name": "cta_real",
+          "description": "O botão no HTML não é genérico",
+          "type": "not_contains_any",
+          "values": [
+            ">Comece agora<",
+            ">Saiba mais<",
+            ">Clique aqui<"
+          ]
+        },
+        {
+          "name": "sem_travessao",
+          "description": "Copy sem travessão",
+          "type": "not_contains",
+          "value": " — "
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Faz o formulário de cadastro de cliente (nome, CPF, telefone, e-mail) com botão Salvar.",
+      "expected_output": "Aplica o roteiro de robustez: label visível, campo com 16px, botão desabilitado e com carregamento durante o envio, erro que preserva o que foi digitado, texto longo sem estourar e os estados de tela.",
+      "assertions": [
+        {
+          "name": "duplo_envio",
+          "description": "Desabilita o botão durante o envio",
+          "type": "contains_any",
+          "values": [
+            "disabled",
+            "desabilit",
+            "Salvando"
+          ]
+        },
+        {
+          "name": "label_visivel",
+          "description": "Usa label visível, não só placeholder",
+          "type": "contains",
+          "value": "<label"
+        },
+        {
+          "name": "campo_16px",
+          "description": "Campo de formulário com 16px ou mais",
+          "type": "contains_any",
+          "values": [
+            "16px",
+            "1rem"
+          ]
+        },
+        {
+          "name": "preserva_dados",
+          "description": "Erro preserva o que foi digitado",
+          "type": "contains_any",
+          "values": [
+            "preserv",
+            "mantém o que",
+            "não apaga"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Adiciona na tabela de pedidos um botão para excluir o pedido, com confirmação.",
+      "expected_output": "A confirmação nomeia o pedido e a consequência; o botão repete a ação ('Excluir pedido') em vez de 'OK' ou 'Sim'; oferece desfazer quando possível.",
+      "assertions": [
+        {
+          "name": "botao_repete_acao",
+          "description": "Botão de confirmação repete a ação",
+          "type": "contains",
+          "value": "Excluir pedido"
+        },
+        {
+          "name": "sem_ok",
+          "description": "Botão de confirmação não é OK nem Sim",
+          "type": "not_contains_any",
+          "values": [
+            ">OK<",
+            ">Sim<"
+          ]
+        },
+        {
+          "name": "consequencia",
+          "description": "Diz o que acontece depois",
+          "type": "contains_any",
+          "values": [
+            "não pode ser desfeit",
+            "Desfazer",
+            "desfazer",
+            "volta",
+            "consequência"
+          ]
+        }
+      ]
+    }
+  ]
+}
